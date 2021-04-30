@@ -1,0 +1,78 @@
+<h4>Formularios <small>template</small></h4>
+<hr>
+<form (ngSubmit)="guardar(forma)" #forma="ngForm" novalidate>
+
+    <div>
+
+        <div class="form-group row" [ngClass]="{'has-danger': (n.errors?.required || n.errors?.minlength)&& n.touched}">
+            <label class="col-2 col-form-label">Nombre</label>
+            <div class="col-8">
+
+                <input #n="ngModel" class="form-control" name="nombre" [(ngModel)]="usuarioe.nombre" required type="text" placeholder="Nombre" minlength="5">
+                <div *ngIf="n.errors?.required" class="form-control-feedback">
+                    Este campo es requerido.
+                </div>
+                <div *ngIf="n.errors?.minlength" class="form-control-feedback">
+                    Por lo menos {{n.errors?.minlength.requiredLength}} caracteres.
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group row" [ngClass]="{'has-danger': (a.errors?.required)&& a.touched}">
+            <label class="col-2 col-form-label">Apellido</label>
+            <div class="col-8">
+
+                <input #a="ngModel" class="form-control" name="apellido" [(ngModel)]="apellido" required type="text" placeholder="Apellido">
+                <div *ngIf="a.errors?.required" class="form-control-feedback">
+                    Este campo es requerido.
+                </div>
+                <!-- <div *ngIf="a.errors?.minlength">
+                    Por lo menos {{n.errors?.minlength.requiredLength}} caracteres.
+                </div> -->
+            </div>
+        </div>
+
+    </div>
+
+    <div class="form-group row" [ngClass]="{'has-danger':(c.errors?.required)&& c.touched}">
+        <label class="col-2 col-form-label">Correo</label>
+        <div class="col-md-8">
+
+            <input #c="ngModel" class="form-control" name="correo" [(ngModel)]="correo" required type="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" placeholder="Correo electrónico">
+            <div *ngIf="c.errors?.required" class="form-control-feedback">
+                Este campo es requerido.
+            </div>
+            <div *ngIf="c.errors?.pattern" class="form-control-feedback">
+                El campo no tiene el formato de correo.
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label class="col-2 col-form-label">Pais</label>
+        <div class="col-md-8">
+
+            <select name="pais" class="form-control" [(ngModel)]="pais">
+            <option value="">
+                Seleccione un pais
+            </option>
+            <option [value]="pais.codigo" *ngFor="let pais of paises">
+                {{ pais.nombre }}
+            </option>
+            </select>
+        </div>
+    </div>
+
+
+
+
+    <div class="form-group row">
+        <label class="col-2 col-form-label">&nbsp;</label>
+        <div class="input-group col-md-8">
+            <button type="submit" class="btn btn-outline-primary" [disabled]="!forma.valid">
+        Guardar
+      </button>
+        </div>
+    </div>
+
+</form>
